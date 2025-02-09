@@ -221,6 +221,12 @@ open class VirtualMachine {
                 }
             }
             
+            if vm.stackSize() < typeCheckers.count {
+                let error = "expected \(typeCheckers.count) arguments, got \(vm.stackSize())"
+                error.push(vm)
+                lua_error(vm.state)
+            }
+            
             // build args list
             let args = Arguments()
             for _ in 0 ..< vm.stackSize() {
